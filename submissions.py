@@ -1,11 +1,12 @@
 import requests
+from datetime import datetime, timedelta
 import xml.etree.ElementTree as ET
 
-def query_arxiv(api_url, search_query):
+def query_arxiv(api_url, search_query, start_i=0):
     params = {
         'search_query': search_query,
-        'start': 0,
-        'max_results': 10,  # You can adjust the number of results as needed
+        'start': start_i,
+        'max_results': 50,  # You can adjust the number of results as needed
     }
 
     response = requests.get(api_url, params=params)
@@ -40,22 +41,28 @@ def parse_arxiv_response(xml_response):
         entries.append(entry_data)
     return entries
 
-def main():
+def fetch_from_date(cutoff_date): # YYYY-MM-DD
+
+    cutoff_dt = datetime.strptime(cutoff_date, '%Y-%m-%d')
+
     api_url = 'http://export.arxiv.org/api/query?sortBy=lastUpdatedDate&sortOrder=descending'
     search_query = 'cat:cs.AI OR cat:cs.CV OR cat:cs.LG OR cat:cs.RO'
 
-    xml_response = query_arxiv(api_url, search_query)
-    if xml_response:
+    start_i = 0
+    keep_entries = []
+    while True:
+        xml_response = query_arxiv(api_url, search_query, start_i=start_i)
+        if not xml_response: break
         entries = parse_arxiv_response(xml_response)
-
-        for i, entry in enumerate(entries, start=1):
-            print(f"\nEntry {i}:")
-            print(f"Title: {entry['title']}")
-            print(f"Author: {entry['author']}")
-            print(f"Link: {entry['link']}")
-            print(f"Summary: {entry['summary']}")
-            print(f"updated: {entry['updated']}")
+        last_updated = None
+        for i, entry in enumerate(entries):
+            last_updated = datetime.strptime(entry['updated'], '%Y-%m-%dT%H:%M:%SZ')
+            if last_updated > cutoff_dt: keep_entries.append(entry)
+        if last_updated is None or (last_updated < cutoff_dt):
+            break
+        start_i += len(entries)
+    return keep_entries
 
 if __name__ == "__main__":
-    main()
+    fetch_from_date('2024-02-01')
 
