@@ -8,7 +8,9 @@ from scholarly import scholarly
 import requests
 from datetime import datetime, timedelta
 import xml.etree.ElementTree as ET
+import traceback
 import numpy as np
+import minify_html
 
 def query_arxiv(api_url, search_query, start_i=0):
     params = {
@@ -28,7 +30,7 @@ def parse_arxiv_response(xml_response):
     ns = {'atom': 'http://www.w3.org/2005/Atom'}
     entries = []
 
-    for entry in tqdm.tqdm(root.findall('.//atom:entry',ns)):
+    for entry in root.findall('.//atom:entry',ns):
         entry_data = {}
         for child in entry:
             tag = child.tag.replace(f"{{{ns['atom']}}}", "")
@@ -84,6 +86,9 @@ def calculate_md5_hash(input_string):
 
 def get_text_embedding(title, author, abstract, openai_token):
     text = f'title: {title}\nauthors: {author}\nabstract: {abstract}\n'
+    num_tokens = num_tokens_from_string(text, "cl100k_base")
+    if num_tokens > 1000: text = text[:1000]
+    print (f'expected #tokens {num_tokens_from_string(text, "cl100k_base")}')
     url = "https://api.openai.com/v1/embeddings"
     headers = {
         "Content-Type": "application/json",
@@ -93,25 +98,23 @@ def get_text_embedding(title, author, abstract, openai_token):
         "input":  text,
         "model": "text-embedding-3-small"
     }
-    response = requests.post(url, headers=headers, json=data)
+    response = requests.post(url, headers=headers, json=data, timeout=10)
     res = response.json()
     feat = res['data'][0]['embedding']
     return feat
 
-def get_prefilled_google_form(title,author,abstract,link="",embedding=""):
+def get_prefilled_google_form(title,author,abstract,link=""):
     entry_title = 'entry.1380929848'
     entry_author = 'entry.906535625'
     entry_abstract = 'entry.1292438233'
     entry_link = 'entry.1838667208'
     entry_rating = 'entry.124074799'
     entry_comments = 'entry.1108263184'
-    entry_embedding = 'entry.1453077783'
     title = quote(title)
     author = quote(author)
     abstract = quote(abstract)
     link = quote(link)
-    embedding = quote(embedding)
-    return f'https://docs.google.com/forms/d/e/1FAIpQLSfSfFqShId9ssA7GWYmvv7m_7qsIao4K__1rDj9BurNNxUPYQ/viewform?{entry_title}={title}&{entry_author}={author}&{entry_abstract}={abstract}&{entry_link}={link}&{entry_rating}=Read&{entry_embedding}={embedding}'
+    return f'https://docs.google.com/forms/d/e/1FAIpQLSfSfFqShId9ssA7GWYmvv7m_7qsIao4K__1rDj9BurNNxUPYQ/viewform?{entry_title}={title}&{entry_author}={author}&{entry_abstract}={abstract}&{entry_link}={link}&{entry_rating}=Read'
 
 if __name__ == '__main__':
 
@@ -138,31 +141,35 @@ if __name__ == '__main__':
         all_pubs = []
         for pub in tqdm.tqdm(author['publications']):
             scholarly.fill(pub)
-            bib = pub['bib']
-            title = bib['title']
-            author = bib['author']
-            if 'abstract' not in bib: continue
-            abstract = bib['abstract']
-            link = pub['pub_url']
-            feat = get_text_embedding(title,author,abstract, args.openai_token)
-            entry = {'title':title, 'author':author, 'abstract':abstract, 'link':link, 'embedding':feat, 'rating':'Read'}
-            all_pubs.append(entry)
+            try:
+                bib = pub['bib']
+                title = bib['title']
+                author = bib['author']
+                if 'abstract' not in bib: continue
+                abstract = bib['abstract']
+                link = pub['pub_url']
+                feat = get_text_embedding(title,author,abstract, args.openai_token)
+                entry = {'title':title, 'author':author, 'abstract':abstract, 'link':link, 'embedding':feat, 'rating':'Read'}
+                all_pubs.append(entry)
+            except Exception as e:
+                print (traceback.format_exc())
         db['read'] = all_pubs
         json.dump(db, open(args.db, 'w'))
         sys.exit(0)
     else:
         assert (os.path.exists(args.db))
 
+    # TODO: update db from google forms
     db = json.load(open(args.db))
     cutoff_dt = (datetime.now() + timedelta(days=-cutoff_day)).strftime('%Y-%m-%d %H:%M:%S')
     # new_entries = fetch_from_date(cutoff_dt)
     # json.dump(new_entries, open('/tmp/new_entries.json', 'w'))
     new_entries = json.load(open('/tmp/new_entries.json'))
     if len(new_entries) == 0: sys.exit(0)
-    # relevancy = (\sum READ*2*s + \sum MARK*1*s + \sum IGNORE*-2*s)
+    # relevancy = (\sum READ*2*s + \sum like*10*s + \sum IGNORE*-5*s)
     db_feats = []
     db_weights = []
-    for [w,tag] in [[2,'read'],[1,'mark'],[-2,'ignore']]:
+    for [w,tag] in [[2,'read'],[10,'like'],[-5,'ignore']]:
         feats = [e['embedding'] for e in db.get(tag,[])]
         db_feats.extend(feats)
         db_weights.extend([w]*len(feats))
@@ -185,3 +192,21 @@ if __name__ == '__main__':
     if len(new_entries) > num_keep_top:
         selected_entries.extend(np.random.choice(new_entries[num_keep_top:], size=int(num_keep*random_ratio), replace=False))
 
+    def msg2html(e):
+        return {'title': e['title'], 'author': e['author'], 'abstract': e['abstract'], 'link': e['link'],
+                e['date']: e['updated'].split('T')[0], e['form'] : get_prefilled_google_form(e['title'], e['author'], e['abstract'], e['link'])
+                }
+
+    page_fpath = 'docs/index.html'
+    lines = [l for l in open('_page.html').readlines()]
+    content_line_ind = [l.strip().rstrip() for l in lines].index('__CONTENT__')
+    lines[content_line_ind] = '\n'.join(msg2html(e) for e in selected_entries) + '\n'
+    minified = ''.join(lines) + '\n'
+    minified = minify_html.minify('\n'.join(lines), minify_css=True, minify_js=True, remove_processing_instructions=True)
+    with open(page_fpath, 'w') as f:
+        f.write(minified)
+    files2add.append(page_fpath)
+
+    # os.system(f'git add {page_fpath}')
+    # os.system(f'git commit -m "updated at {cutoff_dt}"')
+    # os.system(f'git push')

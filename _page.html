@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-V34CNNDP8V"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-V34CNNDP8V');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Haoxiang's Messages</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+    }
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background-color: #ffffff;
+      color: black;
+      padding: 10px;
+      text-align: center;
+      z-index: 1000;
+      border-bottom: 1px solid #ddd;
+    }
+    header div {
+      display: block;
+      margin: 10px auto;
+    }
+
+    #home-icon {
+      display: block;
+      float: left;
+      margin: 5px;
+      text-decoration: none;
+      color: black;
+    }
+
+    main {
+      margin-top: 60px; /* Adjusted margin to account for fixed header */
+      padding: 20px;
+    }
+
+    .post {
+      background-color: white;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      margin-bottom: 10px;
+      padding: 10px 20px;
+      max-height: 600px;
+      overflow: scroll;
+    }
+    .post img {
+      display: block;
+      margin-top: 5px;
+      max-width: auto;
+      max-height: 100px;
+    }
+    .post .clear {
+      clear: both;
+      display: block;
+    }
+    .post a {
+      text-decoration: none;
+    }
+    .post a:hover {
+      color: #0056b3;
+    }
+    .post a:visited {
+      color: #0056b3;
+    }
+    .post div.comment {
+      text-align: right;
+    }
+    .post .text {
+      margin: 1em 0em;
+      padding: 0;
+    }
+    .post .text .title {
+    }
+    .post .text .author {
+    }
+    .post .text .abstract {
+    }
+    .post .date {
+      margin: 0;
+      padding: 0;
+      text-size: small; 
+      color: gray;
+    }
+    .post .link {
+      margin: 0;
+      padding: 0;
+    }
+    @media screen and (max-width: 600px) {
+      body {
+        max-width: 100%; 
+      }
+      #home-icon {
+        float: none;
+        display: block;
+        text-align: center;
+        margin-bottom: 10px;
+      }
+    }
+    footer {
+      width: 100%;
+      background-color: #ddd;
+      text-align: center;
+      z-index: 1000;
+      padding: 20px 0px;
+      margin-bottom: 20px;
+      left: 0;
+    }
+
+    #next-btn,
+    #prev-btn {
+      background-color: #4CAF50;
+      color: white;
+      padding: 8px 16px;
+      margin: 0 50px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .links {
+      padding: 20px;
+    }
+    .links a {
+      text-decoration: none;
+    }
+    .links a:hover {
+      color: #0056b3;
+    }
+    .links a:visited {
+      color: #0056b3;
+    }
+
+    #page-index {
+      font-size: small;
+    }
+    .ads {
+      width: 100%;
+    }
+
+    </style>
+  </head>
+  <body>
+
+    <header>
+      <a id="home-icon" href="https://haoxiang.org/">about this page</a>
+    </header>
+
+    <main id="content">
+      <!-- Posts will be dynamically added here using JavaScript -->
+    </main>
+
+    <script>
+      // Dummy data for posts
+      const posts = [
+        __CONTENT__
+      ];
+      const content = document.getElementById('content');
+      function createPostElement(post) {
+        const postElement = document.createElement('div');
+        postElement.className = 'post';
+        const dateElem = document.createElement('p');
+        dateElem.setAttribute("class", "date");
+        dateElem.textContent = post.date;
+        postElement.appendChild(dateElem);
+
+        const textElem = document.createElement('p');
+        textElem.setAttribute("class", "text");
+        const titleElem = document.createElement('p');
+        titleElem.setAttribute("class", "title");
+        titleElem.textContent = post.title;
+        textElem.appendChild(titleElem);
+        const authorElem = document.createElement('p');
+        authorElem.setAttribute("class", "author");
+        authorElem.textContent = post.author;
+        textElem.appendChild(authorElem);
+        const abstractElem = document.createElement('p');
+        abstractElem.setAttribute("class", "abstract");
+        abstractElem.textContent = post.abstract;
+        textElem.appendChild(abstractElem);
+
+        const linkElement = document.createElement('a');
+        linkElement.setAttribute("class", "link");
+        linkElement.href = post.link;
+        linkElement.target = "_blank";
+        linkElement.textContent = post.link.length > 50 ? post.link.substring(0, 50) + '...' : post.link;
+        textElem.appendChild(linkElement);
+        postElement.appendChild(textElem);
+        const linkElementContainer = document.createElement('div');
+        linkElementContainer.setAttribute("class", "comment");
+        const linkElement = document.createElement('a');
+        linkElement.setAttribute("class", "comment");
+        linkElement.href = post.form;
+        linkElement.textContent = "Action";
+        linkElement.target = "_blank";
+        linkElementContainer.appendChild(linkElement);
+        postElement.appendChild(linkElementContainer);
+        const e = document.createElement('div');
+        e.setAttribute("class", "clear");
+        postElement.appendChild(e);
+        return postElement;
+      }
+      function loadPosts() {
+        // Simulate loading more posts
+        posts.forEach((post) => {
+          const postElement = createPostElement(post);
+          content.appendChild(postElement);
+        });
+      }
+      // Load initial posts
+      __PAGE__
+      loadPosts();
+    </script>
+
+  </body>
+</html>
+
