@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-V34CNNDP8V"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-V34CNNDP8V');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Haoxiang's Messages</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+    }
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background-color: #ffffff;
+      color: black;
+      padding: 10px;
+      text-align: center;
+      z-index: 1000;
+      border-bottom: 1px solid #ddd;
+    }
+    header div {
+      display: block;
+      margin: 10px auto;
+    }
+
+    #home-icon {
+      display: block;
+      float: left;
+      margin: 5px;
+      text-decoration: none;
+      color: black;
+    }
+
+    main {
+      margin-top: 60px; /* Adjusted margin to account for fixed header */
+      padding: 20px;
+    }
+
+    .post {
+      background-color: white;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      margin-bottom: 10px;
+      padding: 10px 20px;
+      max-height: 1200px;
+      overflow: scroll;
+    }
+    .post img {
+      display: block;
+      margin-top: 5px;
+      max-width: auto;
+      max-height: 100px;
+    }
+    .post .clear {
+      clear: both;
+      display: block;
+    }
+    .post a {
+      text-decoration: none;
+    }
+    .post a:hover {
+      color: #0056b3;
+    }
+    .post a:visited {
+      color: #0056b3;
+    }
+    .post div.comment {
+      text-align: right;
+    }
+    .post .text {
+      margin: 1em 0em;
+      padding: 0;
+    }
+    .post .text .title {
+    }
+    .post .text .author {
+    }
+    .post .text .abstract {
+    }
+    .post .topK {
+      display: block;
+      margin: 0.5em;
+    }
+    .post .date {
+      margin: 0;
+      padding: 0;
+      text-size: small; 
+      color: gray;
+    }
+    .post .link {
+      margin: 0;
+      padding: 0;
+    }
+    @media screen and (max-width: 600px) {
+      body {
+        max-width: 100%; 
+      }
+      #home-icon {
+        float: none;
+        display: block;
+        text-align: center;
+        margin-bottom: 10px;
+      }
+    }
+    footer {
+      width: 100%;
+      background-color: #ddd;
+      text-align: center;
+      z-index: 1000;
+      padding: 20px 0px;
+      margin-bottom: 20px;
+      left: 0;
+    }
+
+    #next-btn,
+    #prev-btn {
+      background-color: #4CAF50;
+      color: white;
+      padding: 8px 16px;
+      margin: 0 50px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .links {
+      padding: 20px;
+    }
+    .links a {
+      text-decoration: none;
+    }
+    .links a:hover {
+      color: #0056b3;
+    }
+    .links a:visited {
+      color: #0056b3;
+    }
+
+    #page-index {
+      font-size: small;
+    }
+    .ads {
+      width: 100%;
+    }
+
+    </style>
+  </head>
+  <body>
+
+    <header>
+      <a href="https://haoxiang.org/">About</a>
+    </header>
+
+    <main id="content">
+      <!-- Posts will be dynamically added here using JavaScript -->
+    </main>
+
+    <script>
+      // Dummy data for posts
+      const posts = [
+{"title": "uPLAM: Robust Panoptic Localization and Mapping Leveraging Perception\n  Uncertainties", "author": "Kshitij Sirohi and Daniel B\u00fcscher and Wolfram Burgard", "abstract": "  The availability of a reliable map and a robust localization system is\ncritical for the operation of an autonomous vehicle. In a modern system, both\nmapping and localization solutions generally employ convolutional neural\nnetwork (CNN) --based perception. Hence, any algorithm should consider\npotential errors in perception for safe and robust functioning. In this work,\nwe present uncertainty-aware panoptic Localization and Mapping (uPLAM), which\nemploys perception uncertainty as a bridge to fuse the perception information\nwith classical localization and mapping approaches. We introduce an\nuncertainty-based map aggregation technique to create a long-term panoptic\nbird's eye view map and provide an associated mapping uncertainty. Our map\nconsists of surface semantics and landmarks with unique IDs. Moreover, we\npresent panoptic uncertainty-aware particle filter-based localization. To this\nend, we propose an uncertainty-based particle importance weight calculation for\nthe adaptive incorporation of perception information into localization. We also\npresent a new dataset for evaluating long-term panoptic mapping and map-based\nlocalization. Extensive evaluations showcase that our proposed uncertainty\nincorporation leads to better mapping with reliable uncertainty estimates and\naccurate localization. We make our dataset and code available at:\n\\url{http://uplam.cs.uni-freiburg.de}\n", "link": "http://arxiv.org/abs/2402.05840v1", "date": "2024-02-08", "relevancy": 1.3992, "topK": [{"title": "uPLAM: Robust Panoptic Localization and Mapping Leveraging Perception\n  Uncertainties", "link": "http://arxiv.org/abs/2402.05840v1", "similarity": 1.0}, {"title": "DDM-NET: End-to-end learning of keypoint feature Detection, Description and Matching for 3D localization", "link": "https://arxiv.org/abs/2212.04575", "similarity": 0.5833}, {"title": "Flexible Visual Recognition by Evidential Modeling of Confusion and Ignorance", "link": "http://openaccess.thecvf.com/content/ICCV2023/html/Fan_Flexible_Visual_Recognition_by_Evidential_Modeling_of_Confusion_and_Ignorance_ICCV_2023_paper.html", "similarity": 0.5156}], "form": "https://docs.google.com/forms/d/e/1FAIpQLSfSfFqShId9ssA7GWYmvv7m_7qsIao4K__1rDj9BurNNxUPYQ/viewform?entry.1380929848=uPLAM%3A%20Robust%20Panoptic%20Localization%20and%20Mapping%20Leveraging%20Perception%0A%20%20Uncertainties&entry.906535625=Kshitij%20Sirohi%20and%20Daniel%20B%C3%BCscher%20and%20Wolfram%20Burgard&entry.1292438233=%20%20The%20availability%20of%20a%20reliable%20map%20and%20a%20robust%20localization%20system%20is%0Acritical%20for%20the%20operation%20of%20an%20autonomous%20vehicle.%20In%20a%20modern%20system%2C%20both%0Amapping%20and%20localization%20solutions%20generally%20employ%20convolutional%20neural%0Anetwork%20%28CNN%29%20--based%20perception.%20Hence%2C%20any%20algorithm%20should%20consider%0Apotential%20errors%20in%20perception%20for%20safe%20and%20robust%20functioning.%20In%20this%20work%2C%0Awe%20present%20uncertainty-aware%20panoptic%20Localization%20and%20Mapping%20%28uPLAM%29%2C%20which%0Aemploys%20perception%20uncertainty%20as%20a%20bridge%20to%20fuse%20the%20perception%20information%0Awith%20classical%20localization%20and%20mapping%20approaches.%20We%20introduce%20an%0Auncertainty-based%20map%20aggregation%20technique%20to%20create%20a%20long-term%20panoptic%0Abird%27s%20eye%20view%20map%20and%20provide%20an%20associated%20mapping%20uncertainty.%20Our%20map%0Aconsists%20of%20surface%20semantics%20and%20landmarks%20with%20unique%20IDs.%20Moreover%2C%20we%0Apresent%20panoptic%20uncertainty-aware%20particle%20filter-based%20localization.%20To%20this%0Aend%2C%20we%20propose%20an%20uncertainty-based%20particle%20importance%20weight%20calculation%20for%0Athe%20adaptive%20incorporation%20of%20perception%20information%20into%20localization.%20We%20also%0Apresent%20a%20new%20dataset%20for%20evaluating%20long-term%20panoptic%20mapping%20and%20map-based%0Alocalization.%20Extensive%20evaluations%20showcase%20that%20our%20proposed%20uncertainty%0Aincorporation%20leads%20to%20better%20mapping%20with%20reliable%20uncertainty%20estimates%20and%0Aaccurate%20localization.%20We%20make%20our%20dataset%20and%20code%20available%20at%3A%0A%5Curl%7Bhttp%3A//uplam.cs.uni-freiburg.de%7D%0A&entry.1838667208=http%3A//arxiv.org/abs/2402.05840v1&entry.124074799=Read"},
+{"title": "Dynamic Grasping of Unknown Objects with a Multi-Fingered Hand", "author": "Yannick Burkhardt and Qian Feng and Karan Sharma and Zhaopeng Chen and Alois Knoll", "abstract": "  An important prerequisite for autonomous robots is their ability to reliably\ngrasp a wide variety of objects. Most state-of-the-art systems employ\nspecialized or simple end-effectors, such as two-jaw grippers, which limit the\nrange of objects to manipulate. Additionally, they conventionally require a\nstructured and fully predictable environment while the vast majority of our\nworld is complex, unstructured, and dynamic. This paper presents a novel\napproach to integrate a five-finger hand with visual servo control to enable\ndynamic grasping and compensate for external disturbances. The multi-fingered\nend-effector enhances the variety of possible grasps and manipulable objects.\nIt is controlled by a deep learning based generative grasping network. The\nrequired virtual model of the unknown target object is iteratively completed by\nprocessing visual sensor data. Our experiments on real hardware confirm the\nsystem's capability to reliably grasp unknown dynamic target objects. To the\nbest of our knowledge, this is the first method to achieve dynamic\nmulti-fingered grasping for unknown objects. A video of the experiments is\navailable at https://youtu.be/5Ou6V_QMrNY.\n", "link": "http://arxiv.org/abs/2310.17923v2", "date": "2024-02-08", "relevancy": 1.1925, "topK": [{"title": "UGG: Unified Generative Grasping", "link": "https://arxiv.org/abs/2311.16917", "similarity": 0.6875}, {"title": "Egocentric Computer Vision for Hands-Free Robotic Wheelchair Navigation", "link": "https://link.springer.com/article/10.1007/s10846-023-01807-4", "similarity": 0.5944}, {"title": "Boosted dynamic neural networks", "link": "https://ojs.aaai.org/index.php/AAAI/article/view/26302", "similarity": 0.5068}], "form": "https://docs.google.com/forms/d/e/1FAIpQLSfSfFqShId9ssA7GWYmvv7m_7qsIao4K__1rDj9BurNNxUPYQ/viewform?entry.1380929848=Dynamic%20Grasping%20of%20Unknown%20Objects%20with%20a%20Multi-Fingered%20Hand&entry.906535625=Yannick%20Burkhardt%20and%20Qian%20Feng%20and%20Karan%20Sharma%20and%20Zhaopeng%20Chen%20and%20Alois%20Knoll&entry.1292438233=%20%20An%20important%20prerequisite%20for%20autonomous%20robots%20is%20their%20ability%20to%20reliably%0Agrasp%20a%20wide%20variety%20of%20objects.%20Most%20state-of-the-art%20systems%20employ%0Aspecialized%20or%20simple%20end-effectors%2C%20such%20as%20two-jaw%20grippers%2C%20which%20limit%20the%0Arange%20of%20objects%20to%20manipulate.%20Additionally%2C%20they%20conventionally%20require%20a%0Astructured%20and%20fully%20predictable%20environment%20while%20the%20vast%20majority%20of%20our%0Aworld%20is%20complex%2C%20unstructured%2C%20and%20dynamic.%20This%20paper%20presents%20a%20novel%0Aapproach%20to%20integrate%20a%20five-finger%20hand%20with%20visual%20servo%20control%20to%20enable%0Adynamic%20grasping%20and%20compensate%20for%20external%20disturbances.%20The%20multi-fingered%0Aend-effector%20enhances%20the%20variety%20of%20possible%20grasps%20and%20manipulable%20objects.%0AIt%20is%20controlled%20by%20a%20deep%20learning%20based%20generative%20grasping%20network.%20The%0Arequired%20virtual%20model%20of%20the%20unknown%20target%20object%20is%20iteratively%20completed%20by%0Aprocessing%20visual%20sensor%20data.%20Our%20experiments%20on%20real%20hardware%20confirm%20the%0Asystem%27s%20capability%20to%20reliably%20grasp%20unknown%20dynamic%20target%20objects.%20To%20the%0Abest%20of%20our%20knowledge%2C%20this%20is%20the%20first%20method%20to%20achieve%20dynamic%0Amulti-fingered%20grasping%20for%20unknown%20objects.%20A%20video%20of%20the%20experiments%20is%0Aavailable%20at%20https%3A//youtu.be/5Ou6V_QMrNY.%0A&entry.1838667208=http%3A//arxiv.org/abs/2310.17923v2&entry.124074799=Read"},
+{"title": "MoD-SLAM: Monocular Dense Mapping for Unbounded 3D Scene Reconstruction", "author": "Heng Zhou and Zhetao Guo and Shuhong Liu and Lechen Zhang and Qihao Wang and Yuxiang Ren and Mingrui Li", "abstract": "  Neural implicit representations have recently been demonstrated in many\nfields including Simultaneous Localization And Mapping (SLAM). Current neural\nSLAM can achieve ideal results in reconstructing bounded scenes, but this\nrelies on the input of RGB-D images. Neural-based SLAM based only on RGB images\nis unable to reconstruct the scale of the scene accurately, and it also suffers\nfrom scale drift due to errors accumulated during tracking. To overcome these\nlimitations, we present MoD-SLAM, a monocular dense mapping method that allows\nglobal pose optimization and 3D reconstruction in real-time in unbounded\nscenes. Optimizing scene reconstruction by monocular depth estimation and using\nloop closure detection to update camera pose enable detailed and precise\nreconstruction on large scenes. Compared to previous work, our approach is more\nrobust, scalable and versatile. Our experiments demonstrate that MoD-SLAM has\nmore excellent mapping performance than prior neural SLAM methods, especially\nin large borderless scenes.\n", "link": "http://arxiv.org/abs/2402.03762v2", "date": "2024-02-09", "relevancy": 1.1724, "topK": [{"title": "uPLAM: Robust Panoptic Localization and Mapping Leveraging Perception\n  Uncertainties", "link": "http://arxiv.org/abs/2402.05840v1", "similarity": 0.6292}, {"title": "DDM-NET: End-to-end learning of keypoint feature Detection, Description and Matching for 3D localization", "link": "https://arxiv.org/abs/2212.04575", "similarity": 0.615}, {"title": "IAE: Implicit Autoencoder for Point Cloud Self-supervised Representation Learning", "link": "https://arxiv.org/abs/2201.00785", "similarity": 0.5144}], "form": "https://docs.google.com/forms/d/e/1FAIpQLSfSfFqShId9ssA7GWYmvv7m_7qsIao4K__1rDj9BurNNxUPYQ/viewform?entry.1380929848=MoD-SLAM%3A%20Monocular%20Dense%20Mapping%20for%20Unbounded%203D%20Scene%20Reconstruction&entry.906535625=Heng%20Zhou%20and%20Zhetao%20Guo%20and%20Shuhong%20Liu%20and%20Lechen%20Zhang%20and%20Qihao%20Wang%20and%20Yuxiang%20Ren%20and%20Mingrui%20Li&entry.1292438233=%20%20Neural%20implicit%20representations%20have%20recently%20been%20demonstrated%20in%20many%0Afields%20including%20Simultaneous%20Localization%20And%20Mapping%20%28SLAM%29.%20Current%20neural%0ASLAM%20can%20achieve%20ideal%20results%20in%20reconstructing%20bounded%20scenes%2C%20but%20this%0Arelies%20on%20the%20input%20of%20RGB-D%20images.%20Neural-based%20SLAM%20based%20only%20on%20RGB%20images%0Ais%20unable%20to%20reconstruct%20the%20scale%20of%20the%20scene%20accurately%2C%20and%20it%20also%20suffers%0Afrom%20scale%20drift%20due%20to%20errors%20accumulated%20during%20tracking.%20To%20overcome%20these%0Alimitations%2C%20we%20present%20MoD-SLAM%2C%20a%20monocular%20dense%20mapping%20method%20that%20allows%0Aglobal%20pose%20optimization%20and%203D%20reconstruction%20in%20real-time%20in%20unbounded%0Ascenes.%20Optimizing%20scene%20reconstruction%20by%20monocular%20depth%20estimation%20and%20using%0Aloop%20closure%20detection%20to%20update%20camera%20pose%20enable%20detailed%20and%20precise%0Areconstruction%20on%20large%20scenes.%20Compared%20to%20previous%20work%2C%20our%20approach%20is%20more%0Arobust%2C%20scalable%20and%20versatile.%20Our%20experiments%20demonstrate%20that%20MoD-SLAM%20has%0Amore%20excellent%20mapping%20performance%20than%20prior%20neural%20SLAM%20methods%2C%20especially%0Ain%20large%20borderless%20scenes.%0A&entry.1838667208=http%3A//arxiv.org/abs/2402.03762v2&entry.124074799=Read"},
+{"title": "PAS-SLAM: A Visual SLAM System for Planar Ambiguous Scenes", "author": "Xinggang Hu and Yanmin Wu and Mingyuan Zhao and Linghao Yang and Xiangkui Zhang and Xiangyang Ji", "abstract": "  Visual SLAM (Simultaneous Localization and Mapping) based on planar features\nhas found widespread applications in fields such as environmental structure\nperception and augmented reality. However, current research faces challenges in\naccurately localizing and mapping in planar ambiguous scenes, primarily due to\nthe poor accuracy of the employed planar features and data association methods.\nIn this paper, we propose a visual SLAM system based on planar features\ndesigned for planar ambiguous scenes, encompassing planar processing, data\nassociation, and multi-constraint factor graph optimization. We introduce a\nplanar processing strategy that integrates semantic information with planar\nfeatures, extracting the edges and vertices of planes to be utilized in tasks\nsuch as plane selection, data association, and pose optimization. Next, we\npresent an integrated data association strategy that combines plane parameters,\nsemantic information, projection IoU (Intersection over Union), and\nnon-parametric tests, achieving accurate and robust plane data association in\nplanar ambiguous scenes. Finally, we design a set of multi-constraint factor\ngraphs for camera pose optimization. Qualitative and quantitative experiments\nconducted on publicly available datasets demonstrate that our proposed system\ncompetes effectively in both accuracy and robustness in terms of map\nconstruction and camera localization compared to state-of-the-art methods.\n", "link": "http://arxiv.org/abs/2402.06131v1", "date": "2024-02-09", "relevancy": 1.1676, "topK": [{"title": "uPLAM: Robust Panoptic Localization and Mapping Leveraging Perception\n  Uncertainties", "link": "http://arxiv.org/abs/2402.05840v1", "similarity": 0.6598}, {"title": "DDM-NET: End-to-end learning of keypoint feature Detection, Description and Matching for 3D localization", "link": "https://arxiv.org/abs/2212.04575", "similarity": 0.5771}, {"title": "Flexible Visual Recognition by Evidential Modeling of Confusion and Ignorance", "link": "http://openaccess.thecvf.com/content/ICCV2023/html/Fan_Flexible_Visual_Recognition_by_Evidential_Modeling_of_Confusion_and_Ignorance_ICCV_2023_paper.html", "similarity": 0.5145}], "form": "https://docs.google.com/forms/d/e/1FAIpQLSfSfFqShId9ssA7GWYmvv7m_7qsIao4K__1rDj9BurNNxUPYQ/viewform?entry.1380929848=PAS-SLAM%3A%20A%20Visual%20SLAM%20System%20for%20Planar%20Ambiguous%20Scenes&entry.906535625=Xinggang%20Hu%20and%20Yanmin%20Wu%20and%20Mingyuan%20Zhao%20and%20Linghao%20Yang%20and%20Xiangkui%20Zhang%20and%20Xiangyang%20Ji&entry.1292438233=%20%20Visual%20SLAM%20%28Simultaneous%20Localization%20and%20Mapping%29%20based%20on%20planar%20features%0Ahas%20found%20widespread%20applications%20in%20fields%20such%20as%20environmental%20structure%0Aperception%20and%20augmented%20reality.%20However%2C%20current%20research%20faces%20challenges%20in%0Aaccurately%20localizing%20and%20mapping%20in%20planar%20ambiguous%20scenes%2C%20primarily%20due%20to%0Athe%20poor%20accuracy%20of%20the%20employed%20planar%20features%20and%20data%20association%20methods.%0AIn%20this%20paper%2C%20we%20propose%20a%20visual%20SLAM%20system%20based%20on%20planar%20features%0Adesigned%20for%20planar%20ambiguous%20scenes%2C%20encompassing%20planar%20processing%2C%20data%0Aassociation%2C%20and%20multi-constraint%20factor%20graph%20optimization.%20We%20introduce%20a%0Aplanar%20processing%20strategy%20that%20integrates%20semantic%20information%20with%20planar%0Afeatures%2C%20extracting%20the%20edges%20and%20vertices%20of%20planes%20to%20be%20utilized%20in%20tasks%0Asuch%20as%20plane%20selection%2C%20data%20association%2C%20and%20pose%20optimization.%20Next%2C%20we%0Apresent%20an%20integrated%20data%20association%20strategy%20that%20combines%20plane%20parameters%2C%0Asemantic%20information%2C%20projection%20IoU%20%28Intersection%20over%20Union%29%2C%20and%0Anon-parametric%20tests%2C%20achieving%20accurate%20and%20robust%20plane%20data%20association%20in%0Aplanar%20ambiguous%20scenes.%20Finally%2C%20we%20design%20a%20set%20of%20multi-constraint%20factor%0Agraphs%20for%20camera%20pose%20optimization.%20Qualitative%20and%20quantitative%20experiments%0Aconducted%20on%20publicly%20available%20datasets%20demonstrate%20that%20our%20proposed%20system%0Acompetes%20effectively%20in%20both%20accuracy%20and%20robustness%20in%20terms%20of%20map%0Aconstruction%20and%20camera%20localization%20compared%20to%20state-of-the-art%20methods.%0A&entry.1838667208=http%3A//arxiv.org/abs/2402.06131v1&entry.124074799=Read"},
+{"title": "Online and Certifiably Correct Visual Odometry and Mapping", "author": "Devansh R Agrawal and Rajiv Govindjee and Jiangbo Yu and Anurekha Ravikumar and Dimitra Panagou", "abstract": "  This paper proposes two new algorithms for certified perception in\nsafety-critical robotic applications. The first is a Certified Visual Odometry\nalgorithm, which uses a RGBD camera with bounded sensor noise to construct a\nvisual odometry estimate with provable error bounds. The second is a Certified\nMapping algorithm which, using the same RGBD images, constructs a Signed\nDistance Field of the obstacle environment, always safely underestimating the\ndistance to the nearest obstacle. This is required to avoid errors due to VO\ndrift. The algorithms are demonstrated in hardware experiments, where we\ndemonstrate both running online at 30FPS. The methods are also compared to\nstate-of-the-art techniques for odometry and mapping.\n", "link": "http://arxiv.org/abs/2402.05254v1", "date": "2024-02-07", "relevancy": 1.1474, "topK": [{"title": "uPLAM: Robust Panoptic Localization and Mapping Leveraging Perception\n  Uncertainties", "link": "http://arxiv.org/abs/2402.05840v1", "similarity": 0.6271}, {"title": "Egocentric Computer Vision for Hands-Free Robotic Wheelchair Navigation", "link": "https://link.springer.com/article/10.1007/s10846-023-01807-4", "similarity": 0.594}, {"title": "DDM-NET: End-to-end learning of keypoint feature Detection, Description and Matching for 3D localization", "link": "https://arxiv.org/abs/2212.04575", "similarity": 0.5}], "form": "https://docs.google.com/forms/d/e/1FAIpQLSfSfFqShId9ssA7GWYmvv7m_7qsIao4K__1rDj9BurNNxUPYQ/viewform?entry.1380929848=Online%20and%20Certifiably%20Correct%20Visual%20Odometry%20and%20Mapping&entry.906535625=Devansh%20R%20Agrawal%20and%20Rajiv%20Govindjee%20and%20Jiangbo%20Yu%20and%20Anurekha%20Ravikumar%20and%20Dimitra%20Panagou&entry.1292438233=%20%20This%20paper%20proposes%20two%20new%20algorithms%20for%20certified%20perception%20in%0Asafety-critical%20robotic%20applications.%20The%20first%20is%20a%20Certified%20Visual%20Odometry%0Aalgorithm%2C%20which%20uses%20a%20RGBD%20camera%20with%20bounded%20sensor%20noise%20to%20construct%20a%0Avisual%20odometry%20estimate%20with%20provable%20error%20bounds.%20The%20second%20is%20a%20Certified%0AMapping%20algorithm%20which%2C%20using%20the%20same%20RGBD%20images%2C%20constructs%20a%20Signed%0ADistance%20Field%20of%20the%20obstacle%20environment%2C%20always%20safely%20underestimating%20the%0Adistance%20to%20the%20nearest%20obstacle.%20This%20is%20required%20to%20avoid%20errors%20due%20to%20VO%0Adrift.%20The%20algorithms%20are%20demonstrated%20in%20hardware%20experiments%2C%20where%20we%0Ademonstrate%20both%20running%20online%20at%2030FPS.%20The%20methods%20are%20also%20compared%20to%0Astate-of-the-art%20techniques%20for%20odometry%20and%20mapping.%0A&entry.1838667208=http%3A//arxiv.org/abs/2402.05254v1&entry.124074799=Read"},
+{"title": "DGNet: Dynamic Gradient-Guided Network for Water-Related Optics Image\n  Enhancement", "author": "Jingchun Zhou and Zongxin He and Qiuping Jiang and Kui Jiang and Xianping Fu and Xuelong Li", "abstract": "  Underwater image enhancement (UIE) is a challenging task due to the complex\ndegradation caused by underwater environments. To solve this issue, previous\nmethods often idealize the degradation process, and neglect the impact of\nmedium noise and object motion on the distribution of image features, limiting\nthe generalization and adaptability of the model. Previous methods use the\nreference gradient that is constructed from original images and synthetic\nground-truth images. This may cause the network performance to be influenced by\nsome low-quality training data. Our approach utilizes predicted images to\ndynamically update pseudo-labels, adding a dynamic gradient to optimize the\nnetwork's gradient space. This process improves image quality and avoids local\noptima. Moreover, we propose a Feature Restoration and Reconstruction module\n(FRR) based on a Channel Combination Inference (CCI) strategy and a Frequency\nDomain Smoothing module (FRS). These modules decouple other degradation\nfeatures while reducing the impact of various types of noise on network\nperformance. Experiments on multiple public datasets demonstrate the\nsuperiority of our method over existing state-of-the-art approaches, especially\nin achieving performance milestones: PSNR of 25.6dB and SSIM of 0.93 on the\nUIEB dataset. Its efficiency in terms of parameter size and inference time\nfurther attests to its broad practicality. The code will be made publicly\navailable.\n", "link": "http://arxiv.org/abs/2312.06999v3", "date": "2024-02-08", "relevancy": 1.145, "topK": [{"title": "Boosted dynamic neural networks", "link": "https://ojs.aaai.org/index.php/AAAI/article/view/26302", "similarity": 0.5929}, {"title": "DDM-NET: End-to-end learning of keypoint feature Detection, Description and Matching for 3D localization", "link": "https://arxiv.org/abs/2212.04575", "similarity": 0.5636}, {"title": "UGG: Unified Generative Grasping", "link": "https://arxiv.org/abs/2311.16917", "similarity": 0.561}], "form": "https://docs.google.com/forms/d/e/1FAIpQLSfSfFqShId9ssA7GWYmvv7m_7qsIao4K__1rDj9BurNNxUPYQ/viewform?entry.1380929848=DGNet%3A%20Dynamic%20Gradient-Guided%20Network%20for%20Water-Related%20Optics%20Image%0A%20%20Enhancement&entry.906535625=Jingchun%20Zhou%20and%20Zongxin%20He%20and%20Qiuping%20Jiang%20and%20Kui%20Jiang%20and%20Xianping%20Fu%20and%20Xuelong%20Li&entry.1292438233=%20%20Underwater%20image%20enhancement%20%28UIE%29%20is%20a%20challenging%20task%20due%20to%20the%20complex%0Adegradation%20caused%20by%20underwater%20environments.%20To%20solve%20this%20issue%2C%20previous%0Amethods%20often%20idealize%20the%20degradation%20process%2C%20and%20neglect%20the%20impact%20of%0Amedium%20noise%20and%20object%20motion%20on%20the%20distribution%20of%20image%20features%2C%20limiting%0Athe%20generalization%20and%20adaptability%20of%20the%20model.%20Previous%20methods%20use%20the%0Areference%20gradient%20that%20is%20constructed%20from%20original%20images%20and%20synthetic%0Aground-truth%20images.%20This%20may%20cause%20the%20network%20performance%20to%20be%20influenced%20by%0Asome%20low-quality%20training%20data.%20Our%20approach%20utilizes%20predicted%20images%20to%0Adynamically%20update%20pseudo-labels%2C%20adding%20a%20dynamic%20gradient%20to%20optimize%20the%0Anetwork%27s%20gradient%20space.%20This%20process%20improves%20image%20quality%20and%20avoids%20local%0Aoptima.%20Moreover%2C%20we%20propose%20a%20Feature%20Restoration%20and%20Reconstruction%20module%0A%28FRR%29%20based%20on%20a%20Channel%20Combination%20Inference%20%28CCI%29%20strategy%20and%20a%20Frequency%0ADomain%20Smoothing%20module%20%28FRS%29.%20These%20modules%20decouple%20other%20degradation%0Afeatures%20while%20reducing%20the%20impact%20of%20various%20types%20of%20noise%20on%20network%0Aperformance.%20Experiments%20on%20multiple%20public%20datasets%20demonstrate%20the%0Asuperiority%20of%20our%20method%20over%20existing%20state-of-the-art%20approaches%2C%20especially%0Ain%20achieving%20performance%20milestones%3A%20PSNR%20of%2025.6dB%20and%20SSIM%20of%200.93%20on%20the%0AUIEB%20dataset.%20Its%20efficiency%20in%20terms%20of%20parameter%20size%20and%20inference%20time%0Afurther%20attests%20to%20its%20broad%20practicality.%20The%20code%20will%20be%20made%20publicly%0Aavailable.%0A&entry.1838667208=http%3A//arxiv.org/abs/2312.06999v3&entry.124074799=Read"},
+{"title": "You've Got to Feel It To Believe It: Multi-Modal Bayesian Inference for\n  Semantic and Property Prediction", "author": "Parker Ewen and Hao Chen and Yuzhen Chen and Anran Li and Anup Bagali and Gitesh Gunjal and Ram Vasudevan", "abstract": "  Robots must be able to understand their surroundings to perform complex tasks\nin challenging environments and many of these complex tasks require estimates\nof physical properties such as friction or weight. Estimating such properties\nusing learning is challenging due to the large amounts of labelled data\nrequired for training and the difficulty of updating these learned models\nonline at run time. To overcome these challenges, this paper introduces a\nnovel, multi-modal approach for representing semantic predictions and physical\nproperty estimates jointly in a probabilistic manner. By using conjugate pairs,\nthe proposed method enables closed-form Bayesian updates given visual and\ntactile measurements without requiring additional training data. The efficacy\nof the proposed algorithm is demonstrated through several hardware experiments.\nIn particular, this paper illustrates that by conditioning semantic\nclassifications on physical properties, the proposed method quantitatively\noutperforms state-of-the-art semantic classification methods that rely on\nvision alone. To further illustrate its utility, the proposed method is used in\nseveral applications including to represent affordance-based properties\nprobabilistically and a challenging terrain traversal task using a legged\nrobot. In the latter task, the proposed method represents the coefficient of\nfriction of the terrain probabilistically, which enables the use of an on-line\nrisk-aware planner that switches the legged robot from a dynamic gait to a\nstatic, stable gait when the expected value of the coefficient of friction\nfalls below a given threshold. Videos of these case studies are presented in\nthe multimedia attachment. The proposed framework includes an open-source C++\nand ROS interface.\n", "link": "http://arxiv.org/abs/2402.05872v1", "date": "2024-02-08", "relevancy": 1.1322, "topK": [{"title": "uPLAM: Robust Panoptic Localization and Mapping Leveraging Perception\n  Uncertainties", "link": "http://arxiv.org/abs/2402.05840v1", "similarity": 0.5875}, {"title": "Egocentric Computer Vision for Hands-Free Robotic Wheelchair Navigation", "link": "https://link.springer.com/article/10.1007/s10846-023-01807-4", "similarity": 0.562}, {"title": "Flexible Visual Recognition by Evidential Modeling of Confusion and Ignorance", "link": "http://openaccess.thecvf.com/content/ICCV2023/html/Fan_Flexible_Visual_Recognition_by_Evidential_Modeling_of_Confusion_and_Ignorance_ICCV_2023_paper.html", "similarity": 0.5488}], "form": "https://docs.google.com/forms/d/e/1FAIpQLSfSfFqShId9ssA7GWYmvv7m_7qsIao4K__1rDj9BurNNxUPYQ/viewform?entry.1380929848=You%27ve%20Got%20to%20Feel%20It%20To%20Believe%20It%3A%20Multi-Modal%20Bayesian%20Inference%20for%0A%20%20Semantic%20and%20Property%20Prediction&entry.906535625=Parker%20Ewen%20and%20Hao%20Chen%20and%20Yuzhen%20Chen%20and%20Anran%20Li%20and%20Anup%20Bagali%20and%20Gitesh%20Gunjal%20and%20Ram%20Vasudevan&entry.1292438233=%20%20Robots%20must%20be%20able%20to%20understand%20their%20surroundings%20to%20perform%20complex%20tasks%0Ain%20challenging%20environments%20and%20many%20of%20these%20complex%20tasks%20require%20estimates%0Aof%20physical%20properties%20such%20as%20friction%20or%20weight.%20Estimating%20such%20properties%0Ausing%20learning%20is%20challenging%20due%20to%20the%20large%20amounts%20of%20labelled%20data%0Arequired%20for%20training%20and%20the%20difficulty%20of%20updating%20these%20learned%20models%0Aonline%20at%20run%20time.%20To%20overcome%20these%20challenges%2C%20this%20paper%20introduces%20a%0Anovel%2C%20multi-modal%20approach%20for%20representing%20semantic%20predictions%20and%20physical%0Aproperty%20estimates%20jointly%20in%20a%20probabilistic%20manner.%20By%20using%20conjugate%20pairs%2C%0Athe%20proposed%20method%20enables%20closed-form%20Bayesian%20updates%20given%20visual%20and%0Atactile%20measurements%20without%20requiring%20additional%20training%20data.%20The%20efficacy%0Aof%20the%20proposed%20algorithm%20is%20demonstrated%20through%20several%20hardware%20experiments.%0AIn%20particular%2C%20this%20paper%20illustrates%20that%20by%20conditioning%20semantic%0Aclassifications%20on%20physical%20properties%2C%20the%20proposed%20method%20quantitatively%0Aoutperforms%20state-of-the-art%20semantic%20classification%20methods%20that%20rely%20on%0Avision%20alone.%20To%20further%20illustrate%20its%20utility%2C%20the%20proposed%20method%20is%20used%20in%0Aseveral%20applications%20including%20to%20represent%20affordance-based%20properties%0Aprobabilistically%20and%20a%20challenging%20terrain%20traversal%20task%20using%20a%20legged%0Arobot.%20In%20the%20latter%20task%2C%20the%20proposed%20method%20represents%20the%20coefficient%20of%0Afriction%20of%20the%20terrain%20probabilistically%2C%20which%20enables%20the%20use%20of%20an%20on-line%0Arisk-aware%20planner%20that%20switches%20the%20legged%20robot%20from%20a%20dynamic%20gait%20to%20a%0Astatic%2C%20stable%20gait%20when%20the%20expected%20value%20of%20the%20coefficient%20of%20friction%0Afalls%20below%20a%20given%20threshold.%20Videos%20of%20these%20case%20studies%20are%20presented%20in%0Athe%20multimedia%20attachment.%20The%20proposed%20framework%20includes%20an%20open-source%20C%2B%2B%0Aand%20ROS%20interface.%0A&entry.1838667208=http%3A//arxiv.org/abs/2402.05872v1&entry.124074799=Read"},
+{"title": "Toward Accurate Camera-based 3D Object Detection via Cascade Depth\n  Estimation and Calibration", "author": "Chaoqun Wang and Yiran Qin and Zijian Kang and Ningning Ma and Ruimao Zhang", "abstract": "  Recent camera-based 3D object detection is limited by the precision of\ntransforming from image to 3D feature spaces, as well as the accuracy of object\nlocalization within the 3D space. This paper aims to address such a fundamental\nproblem of camera-based 3D object detection: How to effectively learn depth\ninformation for accurate feature lifting and object localization. Different\nfrom previous methods which directly predict depth distributions by using a\nsupervised estimation model, we propose a cascade framework consisting of two\ndepth-aware learning paradigms. First, a depth estimation (DE) scheme leverages\nrelative depth information to realize the effective feature lifting from 2D to\n3D spaces. Furthermore, a depth calibration (DC) scheme introduces depth\nreconstruction to further adjust the 3D object localization perturbation along\nthe depth axis. In practice, the DE is explicitly realized by using both the\nabsolute and relative depth optimization loss to promote the precision of depth\nprediction, while the capability of DC is implicitly embedded into the\ndetection Transformer through a depth denoising mechanism in the training\nphase. The entire model training is accomplished through an end-to-end manner.\nWe propose a baseline detector and evaluate the effectiveness of our proposal\nwith +2.2%/+2.7% NDS/mAP improvements on NuScenes benchmark, and gain a\ncomparable performance with 55.9%/45.7% NDS/mAP. Furthermore, we conduct\nextensive experiments to demonstrate its generality based on various detectors\nwith about +2% NDS improvements.\n", "link": "http://arxiv.org/abs/2402.04883v1", "date": "2024-02-07", "relevancy": 1.1291, "topK": [{"title": "DDM-NET: End-to-end learning of keypoint feature Detection, Description and Matching for 3D localization", "link": "https://arxiv.org/abs/2212.04575", "similarity": 0.6438}, {"title": "Weakly-guided self-supervised pretraining for temporal activity detection", "link": "https://ojs.aaai.org/index.php/AAAI/article/view/25189", "similarity": 0.5307}, {"title": "uPLAM: Robust Panoptic Localization and Mapping Leveraging Perception\n  Uncertainties", "link": "http://arxiv.org/abs/2402.05840v1", "similarity": 0.5192}], "form": "https://docs.google.com/forms/d/e/1FAIpQLSfSfFqShId9ssA7GWYmvv7m_7qsIao4K__1rDj9BurNNxUPYQ/viewform?entry.1380929848=Toward%20Accurate%20Camera-based%203D%20Object%20Detection%20via%20Cascade%20Depth%0A%20%20Estimation%20and%20Calibration&entry.906535625=Chaoqun%20Wang%20and%20Yiran%20Qin%20and%20Zijian%20Kang%20and%20Ningning%20Ma%20and%20Ruimao%20Zhang&entry.1292438233=%20%20Recent%20camera-based%203D%20object%20detection%20is%20limited%20by%20the%20precision%20of%0Atransforming%20from%20image%20to%203D%20feature%20spaces%2C%20as%20well%20as%20the%20accuracy%20of%20object%0Alocalization%20within%20the%203D%20space.%20This%20paper%20aims%20to%20address%20such%20a%20fundamental%0Aproblem%20of%20camera-based%203D%20object%20detection%3A%20How%20to%20effectively%20learn%20depth%0Ainformation%20for%20accurate%20feature%20lifting%20and%20object%20localization.%20Different%0Afrom%20previous%20methods%20which%20directly%20predict%20depth%20distributions%20by%20using%20a%0Asupervised%20estimation%20model%2C%20we%20propose%20a%20cascade%20framework%20consisting%20of%20two%0Adepth-aware%20learning%20paradigms.%20First%2C%20a%20depth%20estimation%20%28DE%29%20scheme%20leverages%0Arelative%20depth%20information%20to%20realize%20the%20effective%20feature%20lifting%20from%202D%20to%0A3D%20spaces.%20Furthermore%2C%20a%20depth%20calibration%20%28DC%29%20scheme%20introduces%20depth%0Areconstruction%20to%20further%20adjust%20the%203D%20object%20localization%20perturbation%20along%0Athe%20depth%20axis.%20In%20practice%2C%20the%20DE%20is%20explicitly%20realized%20by%20using%20both%20the%0Aabsolute%20and%20relative%20depth%20optimization%20loss%20to%20promote%20the%20precision%20of%20depth%0Aprediction%2C%20while%20the%20capability%20of%20DC%20is%20implicitly%20embedded%20into%20the%0Adetection%20Transformer%20through%20a%20depth%20denoising%20mechanism%20in%20the%20training%0Aphase.%20The%20entire%20model%20training%20is%20accomplished%20through%20an%20end-to-end%20manner.%0AWe%20propose%20a%20baseline%20detector%20and%20evaluate%20the%20effectiveness%20of%20our%20proposal%0Awith%20%2B2.2%25/%2B2.7%25%20NDS/mAP%20improvements%20on%20NuScenes%20benchmark%2C%20and%20gain%20a%0Acomparable%20performance%20with%2055.9%25/45.7%25%20NDS/mAP.%20Furthermore%2C%20we%20conduct%0Aextensive%20experiments%20to%20demonstrate%20its%20generality%20based%20on%20various%20detectors%0Awith%20about%20%2B2%25%20NDS%20improvements.%0A&entry.1838667208=http%3A//arxiv.org/abs/2402.04883v1&entry.124074799=Read"},
+{"title": "Adaptive Activation Functions for Predictive Modeling with Sparse\n  Experimental Data", "author": "Farhad Pourkamali-Anaraki and Tahamina Nasrin and Robert E. Jensen and Amy M. Peterson and Christopher J. Hansen", "abstract": "  A pivotal aspect in the design of neural networks lies in selecting\nactivation functions, crucial for introducing nonlinear structures that capture\nintricate input-output patterns. While the effectiveness of adaptive or\ntrainable activation functions has been studied in domains with ample data,\nlike image classification problems, significant gaps persist in understanding\ntheir influence on classification accuracy and predictive uncertainty in\nsettings characterized by limited data availability. This research aims to\naddress these gaps by investigating the use of two types of adaptive activation\nfunctions. These functions incorporate shared and individual trainable\nparameters per hidden layer and are examined in three testbeds derived from\nadditive manufacturing problems containing fewer than one hundred training\ninstances. Our investigation reveals that adaptive activation functions, such\nas Exponential Linear Unit (ELU) and Softplus, with individual trainable\nparameters, result in accurate and confident prediction models that outperform\nfixed-shape activation functions and the less flexible method of using\nidentical trainable activation functions in a hidden layer. Therefore, this\nwork presents an elegant way of facilitating the design of adaptive neural\nnetworks in scientific and engineering problems.\n", "link": "http://arxiv.org/abs/2402.05401v1", "date": "2024-02-08", "relevancy": 0.9817, "topK": [{"title": "Boosted dynamic neural networks", "link": "https://ojs.aaai.org/index.php/AAAI/article/view/26302", "similarity": 0.5601}, {"title": "uPLAM: Robust Panoptic Localization and Mapping Leveraging Perception\n  Uncertainties", "link": "http://arxiv.org/abs/2402.05840v1", "similarity": 0.4648}, {"title": "Breadcrumbs: Adversarial class-balanced sampling for long-tailed recognition", "link": "https://link.springer.com/chapter/10.1007/978-3-031-20053-3_37", "similarity": 0.4475}], "form": "https://docs.google.com/forms/d/e/1FAIpQLSfSfFqShId9ssA7GWYmvv7m_7qsIao4K__1rDj9BurNNxUPYQ/viewform?entry.1380929848=Adaptive%20Activation%20Functions%20for%20Predictive%20Modeling%20with%20Sparse%0A%20%20Experimental%20Data&entry.906535625=Farhad%20Pourkamali-Anaraki%20and%20Tahamina%20Nasrin%20and%20Robert%20E.%20Jensen%20and%20Amy%20M.%20Peterson%20and%20Christopher%20J.%20Hansen&entry.1292438233=%20%20A%20pivotal%20aspect%20in%20the%20design%20of%20neural%20networks%20lies%20in%20selecting%0Aactivation%20functions%2C%20crucial%20for%20introducing%20nonlinear%20structures%20that%20capture%0Aintricate%20input-output%20patterns.%20While%20the%20effectiveness%20of%20adaptive%20or%0Atrainable%20activation%20functions%20has%20been%20studied%20in%20domains%20with%20ample%20data%2C%0Alike%20image%20classification%20problems%2C%20significant%20gaps%20persist%20in%20understanding%0Atheir%20influence%20on%20classification%20accuracy%20and%20predictive%20uncertainty%20in%0Asettings%20characterized%20by%20limited%20data%20availability.%20This%20research%20aims%20to%0Aaddress%20these%20gaps%20by%20investigating%20the%20use%20of%20two%20types%20of%20adaptive%20activation%0Afunctions.%20These%20functions%20incorporate%20shared%20and%20individual%20trainable%0Aparameters%20per%20hidden%20layer%20and%20are%20examined%20in%20three%20testbeds%20derived%20from%0Aadditive%20manufacturing%20problems%20containing%20fewer%20than%20one%20hundred%20training%0Ainstances.%20Our%20investigation%20reveals%20that%20adaptive%20activation%20functions%2C%20such%0Aas%20Exponential%20Linear%20Unit%20%28ELU%29%20and%20Softplus%2C%20with%20individual%20trainable%0Aparameters%2C%20result%20in%20accurate%20and%20confident%20prediction%20models%20that%20outperform%0Afixed-shape%20activation%20functions%20and%20the%20less%20flexible%20method%20of%20using%0Aidentical%20trainable%20activation%20functions%20in%20a%20hidden%20layer.%20Therefore%2C%20this%0Awork%20presents%20an%20elegant%20way%20of%20facilitating%20the%20design%20of%20adaptive%20neural%0Anetworks%20in%20scientific%20and%20engineering%20problems.%0A&entry.1838667208=http%3A//arxiv.org/abs/2402.05401v1&entry.124074799=Read"},
+{"title": "Collapse-Aware Triplet Decoupling for Adversarially Robust Image\n  Retrieval", "author": "Qiwei Tian and Chenhao Lin and Zhengyu Zhao and Qian Li and Chao Shen", "abstract": "  Adversarial training has achieved substantial performance in defending image\nretrieval against adversarial examples. However, existing studies in deep\nmetric learning (DML) still suffer from two major limitations: weak adversary\nand model collapse. In this paper, we address these two limitations by\nproposing collapse-aware triplet decoupling (CA-TRIDE). Specifically, TRIDE\nyields a strong adversary by spatially decoupling the perturbation targets into\nthe anchor and the other candidates. Furthermore, CA prevents the consequential\nmodel collapse, based on a novel metric, collapseness, which is incorporated\ninto the optimization of perturbation. We also identify two drawbacks of the\nexisting robustness metric in image retrieval and propose a new metric for a\nmore reasonable robustness evaluation. Extensive experiments on three datasets\ndemonstrate that CA-TRIDE outperforms existing defense methods in both\nconventional and new metrics.\n", "link": "http://arxiv.org/abs/2312.07364v2", "date": "2024-02-08", "relevancy": 0.9919, "topK": [{"title": "DDM-NET: End-to-end learning of keypoint feature Detection, Description and Matching for 3D localization", "link": "https://arxiv.org/abs/2212.04575", "similarity": 0.5246}, {"title": "Breadcrumbs: Adversarial class-balanced sampling for long-tailed recognition", "link": "https://link.springer.com/chapter/10.1007/978-3-031-20053-3_37", "similarity": 0.4877}, {"title": "Flexible Visual Recognition by Evidential Modeling of Confusion and Ignorance", "link": "http://openaccess.thecvf.com/content/ICCV2023/html/Fan_Flexible_Visual_Recognition_by_Evidential_Modeling_of_Confusion_and_Ignorance_ICCV_2023_paper.html", "similarity": 0.4756}], "form": "https://docs.google.com/forms/d/e/1FAIpQLSfSfFqShId9ssA7GWYmvv7m_7qsIao4K__1rDj9BurNNxUPYQ/viewform?entry.1380929848=Collapse-Aware%20Triplet%20Decoupling%20for%20Adversarially%20Robust%20Image%0A%20%20Retrieval&entry.906535625=Qiwei%20Tian%20and%20Chenhao%20Lin%20and%20Zhengyu%20Zhao%20and%20Qian%20Li%20and%20Chao%20Shen&entry.1292438233=%20%20Adversarial%20training%20has%20achieved%20substantial%20performance%20in%20defending%20image%0Aretrieval%20against%20adversarial%20examples.%20However%2C%20existing%20studies%20in%20deep%0Ametric%20learning%20%28DML%29%20still%20suffer%20from%20two%20major%20limitations%3A%20weak%20adversary%0Aand%20model%20collapse.%20In%20this%20paper%2C%20we%20address%20these%20two%20limitations%20by%0Aproposing%20collapse-aware%20triplet%20decoupling%20%28CA-TRIDE%29.%20Specifically%2C%20TRIDE%0Ayields%20a%20strong%20adversary%20by%20spatially%20decoupling%20the%20perturbation%20targets%20into%0Athe%20anchor%20and%20the%20other%20candidates.%20Furthermore%2C%20CA%20prevents%20the%20consequential%0Amodel%20collapse%2C%20based%20on%20a%20novel%20metric%2C%20collapseness%2C%20which%20is%20incorporated%0Ainto%20the%20optimization%20of%20perturbation.%20We%20also%20identify%20two%20drawbacks%20of%20the%0Aexisting%20robustness%20metric%20in%20image%20retrieval%20and%20propose%20a%20new%20metric%20for%20a%0Amore%20reasonable%20robustness%20evaluation.%20Extensive%20experiments%20on%20three%20datasets%0Ademonstrate%20that%20CA-TRIDE%20outperforms%20existing%20defense%20methods%20in%20both%0Aconventional%20and%20new%20metrics.%0A&entry.1838667208=http%3A//arxiv.org/abs/2312.07364v2&entry.124074799=Read"},
+      ];
+      const content = document.getElementById('content');
+      function createPostElement(post) {
+        const postElement = document.createElement('div');
+        postElement.className = 'post';
+        const dateElem = document.createElement('p');
+        dateElem.setAttribute("class", "date");
+        dateElem.textContent = post.date;
+        postElement.appendChild(dateElem);
+
+        const textElem = document.createElement('p');
+        textElem.setAttribute("class", "text");
+        const titleElem = document.createElement('p');
+        titleElem.setAttribute("class", "title");
+        titleElem.textContent = post.title;
+        textElem.appendChild(titleElem);
+        const authorElem = document.createElement('p');
+        authorElem.setAttribute("class", "author");
+        authorElem.textContent = post.author;
+        textElem.appendChild(authorElem);
+        const abstractElem = document.createElement('p');
+        abstractElem.setAttribute("class", "abstract");
+        abstractElem.textContent = post.abstract;
+        textElem.appendChild(abstractElem);
+
+        const linkElement = document.createElement('a');
+        linkElement.setAttribute("class", "link");
+        linkElement.href = post.link;
+        linkElement.target = "_blank";
+        linkElement.textContent = post.link.length > 50 ? post.link.substring(0, 50) + '...' : post.link;
+        textElem.appendChild(linkElement);
+        postElement.appendChild(textElem);
+
+        const linkElementContainer = document.createElement('div');
+        linkElementContainer.setAttribute("class", "comment");
+        const actionElement = document.createElement('a');
+        actionElement.setAttribute("class", "comment");
+        actionElement.href = post.form;
+        actionElement.textContent = "Action";
+        actionElement.target = "_blank";
+        linkElementContainer.appendChild(actionElement);
+        postElement.appendChild(linkElementContainer);
+        const e = document.createElement('div');
+        e.setAttribute("class", "clear");
+        postElement.appendChild(e);
+
+        const relevancyContainer = document.createElement('div');
+        const relevancyValElem = document.createElement('p');
+        relevancyValElem.textContent = "Relevancy " + post.relevancy;
+        relevancyContainer.appendChild(relevancyValElem);
+        post.topK.forEach((sub) => {
+          const topKElem = document.createElement('a');
+          topKElem.setAttribute("class", "topK");
+          topKElem.href = sub.link;
+          topKElem.textContent = sub.title + " (" + sub.similarity + ")";
+          topKElem.target = "_blank";
+          relevancyContainer.appendChild(topKElem);
+        });
+        postElement.appendChild(relevancyContainer);
+        return postElement;
+      }
+      function loadPosts() {
+        // Simulate loading more posts
+        posts.forEach((post) => {
+          const postElement = createPostElement(post);
+          content.appendChild(postElement);
+        });
+      }
+      // Load initial posts
+      loadPosts();
+    </script>
+
+  </body>
+</html>
+
+
