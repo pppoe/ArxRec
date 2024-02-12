@@ -11,6 +11,7 @@ import xml.etree.ElementTree as ET
 import traceback
 import numpy as np
 import minify_html
+import gspread
 
 def query_arxiv(api_url, search_query, start_i=0):
     params = {
@@ -122,6 +123,7 @@ if __name__ == '__main__':
     args.add_argument('--setup', action='store_true', default=False, help="load your google scholar profile to get all your publications into the database")
     args.add_argument('--db', type=str, default="db.json", help="path to local json file to store marked publications w/ text embeddings")
     args.add_argument('--openai_token', type=str, default=None, required=True, help='OpenAI API key')
+    args.add_argument('--google_oauth', type=str, default=None, required=True, help='Path to Google OAuth Credentials json file')
     args = args.parse_args()
 
     cutoff_day = 1
@@ -148,6 +150,7 @@ if __name__ == '__main__':
                 if 'abstract' not in bib: continue
                 abstract = bib['abstract']
                 link = pub['pub_url']
+                if pub['bib']['pub_year'] < 2022: continue 
                 feat = get_text_embedding(title,author,abstract, args.openai_token)
                 entry = {'title':title, 'author':author, 'abstract':abstract, 'link':link, 'embedding':feat, 'rating':'Read'}
                 all_pubs.append(entry)
@@ -159,8 +162,11 @@ if __name__ == '__main__':
     else:
         assert (os.path.exists(args.db))
 
-    # TODO: update db from google forms
     db = json.load(open(args.db))
+    gc, authorized_user = gspread.oauth_from_dict(json.load(open(args.google_oauth)))
+    import pdb; pdb.set_trace()
+    # TODO: update db from google forms
+
     cutoff_dt = (datetime.now() + timedelta(days=-cutoff_day)).strftime('%Y-%m-%d %H:%M:%S')
     # new_entries = fetch_from_date(cutoff_dt)
     # json.dump(new_entries, open('/tmp/new_entries.json', 'w'))
@@ -169,22 +175,35 @@ if __name__ == '__main__':
     # relevancy = (\sum READ*2*s + \sum like*10*s + \sum IGNORE*-5*s)
     db_feats = []
     db_weights = []
+    db_titles = []
     for [w,tag] in [[2,'read'],[10,'like'],[-5,'ignore']]:
         feats = [e['embedding'] for e in db.get(tag,[])]
+        db_titles.extend([e for e in db.get(tag,[])])
         db_feats.extend(feats)
         db_weights.extend([w]*len(feats))
     new_feats = np.array([e['embedding'] for e in new_entries])
     new_feats = new_feats/np.linalg.norm(new_feats, axis=1, keepdims=True)
     db_feats = np.array(db_feats)
     db_feats = db_feats/np.linalg.norm(db_feats, axis=1, keepdims=True)
-    db_weights = np.array(db_weights).reshape(-1,1)
+    db_weights = np.array(db_weights)
     batch_size = 32 # limit memory footprint
+    topK = 3
     for i in tqdm.tqdm(range(0, len(new_entries), batch_size)):
         batch_feats = new_feats[i:i+batch_size]
         batch_scores = np.dot(batch_feats, db_feats.T)
-        batch_relevancy = (batch_scores @ db_weights).reshape(-1)/len(db_weights)
-        for j, score in enumerate(batch_relevancy):
-            new_entries[i+j]['relevancy'] = score
+        batch_nn = np.argsort(-batch_scores, axis=1)[:,:topK]
+        for j in range(batch_scores.shape[0]):
+            relevancy = 0
+            for k in range(topK):
+                ind = batch_nn[j,k]
+                relevancy += (batch_scores[j,ind]*db_weights[ind])
+            relevancy = relevancy/topK
+            new_entries[i+j]['relevancy'] = relevancy
+            new_entries[i+j]['topK'] = []
+            for k in batch_nn[j,:topK].tolist():
+                new_entries[i+j]['topK'].append(
+                    {'title': db_titles[k]['title'],'link': db_titles[k]['link'],
+                     'similarity': float(batch_scores[j,k])})
     new_entries = sorted(new_entries, key=lambda x: x['relevancy'], reverse=True)
 
     num_keep_top = int(num_keep*(1-random_ratio))
@@ -193,19 +212,22 @@ if __name__ == '__main__':
         selected_entries.extend(np.random.choice(new_entries[num_keep_top:], size=int(num_keep*random_ratio), replace=False))
 
     def msg2html(e):
-        return {'title': e['title'], 'author': e['author'], 'abstract': e['abstract'], 'link': e['link'],
-                e['date']: e['updated'].split('T')[0], e['form'] : get_prefilled_google_form(e['title'], e['author'], e['abstract'], e['link'])
-                }
+        return json.dumps({'title': e['title'], 'author': e['author'],
+                'abstract': e['abstract'], 'link': e['link'],
+                'date': e['updated'].split('T')[0],
+                'relevancy': e['relevancy'],
+               'topK': e['topK'],
+                'form': get_prefilled_google_form(e['title'], e['author'], e['abstract'], e['link'])}) + ","
 
     page_fpath = 'docs/index.html'
     lines = [l for l in open('_page.html').readlines()]
     content_line_ind = [l.strip().rstrip() for l in lines].index('__CONTENT__')
     lines[content_line_ind] = '\n'.join(msg2html(e) for e in selected_entries) + '\n'
     minified = ''.join(lines) + '\n'
-    minified = minify_html.minify('\n'.join(lines), minify_css=True, minify_js=True, remove_processing_instructions=True)
+    # minified = minify_html.minify('\n'.join(lines), minify_css=True, minify_js=True, remove_processing_instructions=True)
     with open(page_fpath, 'w') as f:
         f.write(minified)
-    files2add.append(page_fpath)
+    # files2add.append(page_fpath)
 
     # os.system(f'git add {page_fpath}')
     # os.system(f'git commit -m "updated at {cutoff_dt}"')

@@ -55,7 +55,7 @@
       border-radius: 5px;
       margin-bottom: 10px;
       padding: 10px 20px;
-      max-height: 600px;
+      max-height: 1200px;
       overflow: scroll;
     }
     .post img {
@@ -89,6 +89,10 @@
     .post .text .author {
     }
     .post .text .abstract {
+    }
+    .post .topK {
+      display: block;
+      margin: 0.5em;
     }
     .post .date {
       margin: 0;
@@ -200,18 +204,33 @@
         linkElement.textContent = post.link.length > 50 ? post.link.substring(0, 50) + '...' : post.link;
         textElem.appendChild(linkElement);
         postElement.appendChild(textElem);
+
         const linkElementContainer = document.createElement('div');
         linkElementContainer.setAttribute("class", "comment");
-        const linkElement = document.createElement('a');
-        linkElement.setAttribute("class", "comment");
-        linkElement.href = post.form;
-        linkElement.textContent = "Action";
-        linkElement.target = "_blank";
-        linkElementContainer.appendChild(linkElement);
+        const actionElement = document.createElement('a');
+        actionElement.setAttribute("class", "comment");
+        actionElement.href = post.form;
+        actionElement.textContent = "Action";
+        actionElement.target = "_blank";
+        linkElementContainer.appendChild(actionElement);
         postElement.appendChild(linkElementContainer);
         const e = document.createElement('div');
         e.setAttribute("class", "clear");
         postElement.appendChild(e);
+
+        const relevancyContainer = document.createElement('div');
+        const relevancyValElem = document.createElement('p');
+        relevancyValElem.textContent = "Relevancy " + post.relevancy;
+        relevancyContainer.appendChild(relevancyValElem);
+        post.topK.forEach((sub) => {
+          const topKElem = document.createElement('a');
+          topKElem.setAttribute("class", "topK");
+          topKElem.href = sub.link;
+          topKElem.textContent = sub.title + " (" + sub.similarity + ")";
+          topKElem.target = "_blank";
+          relevancyContainer.appendChild(topKElem);
+        });
+        postElement.appendChild(relevancyContainer);
         return postElement;
       }
       function loadPosts() {
@@ -222,7 +241,6 @@
         });
       }
       // Load initial posts
-      __PAGE__
       loadPosts();
     </script>
 
