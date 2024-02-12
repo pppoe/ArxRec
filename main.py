@@ -12,6 +12,8 @@ import traceback
 import numpy as np
 import gspread
 
+def format_score(s): return np.round(s, 4)
+
 def query_arxiv(api_url, search_query, start_i=0):
     params = {
         'search_query': search_query,
@@ -195,10 +197,11 @@ if __name__ == '__main__':
     for db_item in online_db_items: db.setdefault(db_item['rating'], []).append(db_item)
 
     cutoff_dt = (datetime.now() + timedelta(days=-cutoff_day)).strftime('%Y-%m-%d %H:%M:%S')
-    # new_entries = fetch_from_date(cutoff_dt)
-    # json.dump(new_entries, open('/tmp/new_entries.json', 'w'))
-    new_entries = json.load(open('/tmp/new_entries.json'))
-    if len(new_entries) == 0: sys.exit(0)
+    new_entries = fetch_from_date(cutoff_dt)
+    json.dump(new_entries, open(f'workspace/new_entries_from_{cutoff_dt}.json', 'w'))
+    if len(new_entries) == 0:
+        print ('no new entries')
+        sys.exit(0)
     # relevancy = (\sum READ*2*s + \sum like*10*s + \sum IGNORE*-5*s)
     db_feats = []
     db_weights = []
@@ -213,26 +216,24 @@ if __name__ == '__main__':
     db_feats = np.array(db_feats)
     db_feats = db_feats/np.linalg.norm(db_feats, axis=1, keepdims=True)
     db_weights = np.array(db_weights)
-    batch_size = 32 # limit memory footprint
+    batch_size = 32
     topK = 3
     for i in tqdm.tqdm(range(0, len(new_entries), batch_size)):
         batch_feats = new_feats[i:i+batch_size]
         batch_scores = np.dot(batch_feats, db_feats.T)
         batch_nn = np.argsort(-batch_scores, axis=1)[:,:topK]
         for j in range(batch_scores.shape[0]):
-            if 'uPLAM' in new_entries[i+j]['title']:
-                import pdb; pdb.set_trace()
             relevancy = 0
             for k in range(topK):
                 ind = batch_nn[j,k]
                 relevancy += (batch_scores[j,ind]*db_weights[ind])
             relevancy = relevancy/topK
-            new_entries[i+j]['relevancy'] = relevancy
+            new_entries[i+j]['relevancy'] = format_score(relevancy)
             new_entries[i+j]['topK'] = []
             for k in batch_nn[j,:topK].tolist():
                 new_entries[i+j]['topK'].append(
                     {'title': db_titles[k]['title'],'link': db_titles[k]['link'],
-                     'similarity': float(batch_scores[j,k])})
+                     'similarity': format_score(float(batch_scores[j,k]))})
     new_entries = sorted(new_entries, key=lambda x: x['relevancy'], reverse=True)
 
     num_keep_top = int(num_keep*(1-random_ratio))
@@ -255,8 +256,6 @@ if __name__ == '__main__':
     minified = ''.join(lines) + '\n'
     with open(page_fpath, 'w') as f:
         f.write(minified)
-    # files2add.append(page_fpath)
-
-    # os.system(f'git add {page_fpath}')
-    # os.system(f'git commit -m "updated at {cutoff_dt}"')
-    # os.system(f'git push')
+    os.system(f'git add {page_fpath}')
+    os.system(f'git commit -m "updated at {cutoff_dt}"')
+    os.system(f'git push')
