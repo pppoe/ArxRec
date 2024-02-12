@@ -10,7 +10,6 @@ from datetime import datetime, timedelta
 import xml.etree.ElementTree as ET
 import traceback
 import numpy as np
-import minify_html
 import gspread
 
 def query_arxiv(api_url, search_query, start_i=0):
@@ -85,10 +84,13 @@ def calculate_md5_hash(input_string):
     md5_hash = hashlib.md5(input_string.encode()).hexdigest()
     return md5_hash
 
-def get_text_embedding(title, author, abstract, openai_token):
+def get_text_embedding(title, author, abstract, openai_token, cache=None):
     text = f'title: {title}\nauthors: {author}\nabstract: {abstract}\n'
     num_tokens = num_tokens_from_string(text, "cl100k_base")
     if num_tokens > 1000: text = text[:1000]
+    text_md5 = calculate_md5_hash(text)
+    if cache is not None:
+        if text_md5 in cache: return cache[text_md5]
     print (f'expected #tokens {num_tokens_from_string(text, "cl100k_base")}')
     url = "https://api.openai.com/v1/embeddings"
     headers = {
@@ -102,6 +104,8 @@ def get_text_embedding(title, author, abstract, openai_token):
     response = requests.post(url, headers=headers, json=data, timeout=10)
     res = response.json()
     feat = res['data'][0]['embedding']
+    if cache is not None:
+        cache[text_md5] = feat
     return feat
 
 def get_prefilled_google_form(title,author,abstract,link=""):
@@ -124,6 +128,7 @@ if __name__ == '__main__':
     args.add_argument('--db', type=str, default="db.json", help="path to local json file to store marked publications w/ text embeddings")
     args.add_argument('--openai_token', type=str, default=None, required=True, help='OpenAI API key')
     args.add_argument('--google_oauth', type=str, default=None, required=True, help='Path to Google OAuth Credentials json file')
+    args.add_argument('--google_oauth_user', type=str, default=None, required=False, help='Path to Google OAuth Authorized User json file')
     args = args.parse_args()
 
     cutoff_day = 1
@@ -152,7 +157,7 @@ if __name__ == '__main__':
                 link = pub['pub_url']
                 if pub['bib']['pub_year'] < 2022: continue 
                 feat = get_text_embedding(title,author,abstract, args.openai_token)
-                entry = {'title':title, 'author':author, 'abstract':abstract, 'link':link, 'embedding':feat, 'rating':'Read'}
+                entry = {'title':title, 'author':author, 'abstract':abstract, 'link':link, 'embedding':feat, 'rating':'read'}
                 all_pubs.append(entry)
             except Exception as e:
                 print (traceback.format_exc())
@@ -163,9 +168,31 @@ if __name__ == '__main__':
         assert (os.path.exists(args.db))
 
     db = json.load(open(args.db))
-    gc, authorized_user = gspread.oauth_from_dict(json.load(open(args.google_oauth)))
-    import pdb; pdb.set_trace()
-    # TODO: update db from google forms
+
+    ## update db from google forms
+    cached_text_embeddings = db.get('cached_text_embeddings', {})
+    if args.google_oauth_user:
+        google_oauth_user = json.load(open(args.google_oauth_user))
+    else:
+        google_oauth_user = None
+    gc, authorized_user = gspread.oauth_from_dict(json.load(open(args.google_oauth)), google_oauth_user)
+    sheet = gc.open('Daily Paper Reading (Responses)').sheet1
+    rows = sheet.get_all_values()
+    header = rows[0]
+    records = []
+    online_db_items = []
+    for r in rows[1:]:
+        rec = dict([[header[idx],r[idx]] for idx in range(len(header))])
+        if rec['Title'] == '': continue
+        records.append(rec)
+        rating = rec['Rating'].lower()
+        embedding = get_text_embedding(rec['Title'],rec['Authors'],rec['Abstract'], args.openai_token, cached_text_embeddings)
+        db_item = {'title':rec['Title'], 'author':rec['Authors'], 'abstract':rec['Abstract'], 'link':rec['Link'], 'embedding':embedding, 'rating':rating}
+        online_db_items.append(db_item)
+    db['cached_text_embeddings'] = cached_text_embeddings
+    json.dump(db, open(args.db, 'w'))
+
+    for db_item in online_db_items: db.setdefault(db_item['rating'], []).append(db_item)
 
     cutoff_dt = (datetime.now() + timedelta(days=-cutoff_day)).strftime('%Y-%m-%d %H:%M:%S')
     # new_entries = fetch_from_date(cutoff_dt)
@@ -193,6 +220,8 @@ if __name__ == '__main__':
         batch_scores = np.dot(batch_feats, db_feats.T)
         batch_nn = np.argsort(-batch_scores, axis=1)[:,:topK]
         for j in range(batch_scores.shape[0]):
+            if 'uPLAM' in new_entries[i+j]['title']:
+                import pdb; pdb.set_trace()
             relevancy = 0
             for k in range(topK):
                 ind = batch_nn[j,k]
@@ -224,7 +253,6 @@ if __name__ == '__main__':
     content_line_ind = [l.strip().rstrip() for l in lines].index('__CONTENT__')
     lines[content_line_ind] = '\n'.join(msg2html(e) for e in selected_entries) + '\n'
     minified = ''.join(lines) + '\n'
-    # minified = minify_html.minify('\n'.join(lines), minify_css=True, minify_js=True, remove_processing_instructions=True)
     with open(page_fpath, 'w') as f:
         f.write(minified)
     # files2add.append(page_fpath)
