@@ -51,10 +51,13 @@ def parse_arxiv_response(xml_response):
         entry_data['author'] = authors
         author = ' and '.join([f"{author['name']}" for author in authors])
         item = {'title': entry_data['title'], 'author': author, 'abstract': entry_data['summary'], 'link':entry_data['id']}
-        feat = get_text_embedding(item['title'],item['author'],item['abstract'], args.openai_token)
-        item['embedding'] = feat
-        item['updated'] = entry_data['updated']
-        entries.append(item)
+        try:
+            feat = get_text_embedding(item['title'],item['author'],item['abstract'], args.openai_token)
+            item['embedding'] = feat
+            item['updated'] = entry_data['updated']
+            entries.append(item)
+        except:
+            print(traceback.print_exc())
     return entries
 
 def fetch_from_date(cutoff_datetime): # YYYY-MM-DD HH:MM:SS
@@ -67,11 +70,14 @@ def fetch_from_date(cutoff_datetime): # YYYY-MM-DD HH:MM:SS
         xml_response = query_arxiv(api_url, search_query, start_i=start_i)
         if not xml_response: break
         entries = parse_arxiv_response(xml_response)
+        import pdb; pdb.set_trace()
         last_updated = None
         for i, entry in enumerate(entries):
             last_updated = datetime.strptime(entry['updated'], '%Y-%m-%dT%H:%M:%SZ')
+            print (i,entry['title'], last_updated)
             if last_updated > cutoff_dt: keep_entries.append(entry)
         if last_updated is None or (last_updated < cutoff_dt):
+            print (f'last updated: {last_updated}, cutoff: {cutoff_dt}')
             break
         start_i += len(entries)
     return keep_entries
@@ -131,9 +137,10 @@ if __name__ == '__main__':
     args.add_argument('--openai_token', type=str, default=None, required=True, help='OpenAI API key')
     args.add_argument('--google_oauth', type=str, default=None, required=True, help='Path to Google OAuth Credentials json file')
     args.add_argument('--google_oauth_user', type=str, default=None, required=False, help='Path to Google OAuth Authorized User json file')
+    args.add_argument('--cutoff_day', type=int, default=1, required=False, help='# of days to keep track of on Arxiv')
     args = args.parse_args()
 
-    cutoff_day = 1
+    cutoff_day = args.cutoff_day
     num_keep = 10
     random_ratio = 0.2
 
@@ -198,7 +205,7 @@ if __name__ == '__main__':
 
     cutoff_dt = (datetime.now() + timedelta(days=-cutoff_day)).strftime('%Y-%m-%d %H:%M:%S')
     new_entries = fetch_from_date(cutoff_dt)
-    json.dump(new_entries, open(f'workspace/new_entries_from_{cutoff_dt}.json', 'w'))
+    json.dump(new_entries, open(f'workspace/new_entries_from_{cutoff_dt.replace(":","").replace("-","")}.json', 'w'))
     if len(new_entries) == 0:
         print ('no new entries')
         sys.exit(0)
