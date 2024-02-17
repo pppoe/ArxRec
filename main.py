@@ -70,7 +70,6 @@ def fetch_from_date(cutoff_datetime): # YYYY-MM-DD HH:MM:SS
         xml_response = query_arxiv(api_url, search_query, start_i=start_i)
         if not xml_response: break
         entries = parse_arxiv_response(xml_response)
-        import pdb; pdb.set_trace()
         last_updated = None
         for i, entry in enumerate(entries):
             last_updated = datetime.strptime(entry['updated'], '%Y-%m-%dT%H:%M:%SZ')
