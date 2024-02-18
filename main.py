@@ -163,7 +163,7 @@ if __name__ == '__main__':
                 if 'abstract' not in bib: continue
                 abstract = bib['abstract']
                 link = pub['pub_url']
-                if pub['bib']['pub_year'] < 2022: continue 
+                if pub['bib']['pub_year'] < 2022: continue
                 feat = get_text_embedding(title,author,abstract, args.openai_token)
                 entry = {'title':title, 'author':author, 'abstract':abstract, 'link':link, 'embedding':feat, 'rating':'read'}
                 all_pubs.append(entry)
@@ -212,7 +212,7 @@ if __name__ == '__main__':
     db_feats = []
     db_weights = []
     db_titles = []
-    for [w,tag] in [[2,'read'],[10,'like'],[-5,'ignore']]:
+    for [w,tag] in [[5,'read'],[2,'like'],[-5,'ignore']]:
         feats = [e['embedding'] for e in db.get(tag,[])]
         db_titles.extend([e for e in db.get(tag,[])])
         db_feats.extend(feats)
