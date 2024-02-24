@@ -136,12 +136,12 @@ if __name__ == '__main__':
     args.add_argument('--openai_token', type=str, default=None, required=True, help='OpenAI API key')
     args.add_argument('--google_oauth', type=str, default=None, required=True, help='Path to Google OAuth Credentials json file')
     args.add_argument('--google_oauth_user', type=str, default=None, required=False, help='Path to Google OAuth Authorized User json file')
-    args.add_argument('--cutoff_day', type=int, default=1, required=False, help='# of days to keep track of on Arxiv')
+    args.add_argument('--cutoff_day', type=int, default=-1, required=False, help='# of days to keep track of on Arxiv, -1 means being adaptive to the arXiv Announcement Schedule')
     args = args.parse_args()
 
     cutoff_day = args.cutoff_day
-    num_keep = 10
-    random_ratio = 0.2
+    num_keep = 100
+    random_ratio = 0.1
 
     # structure: { 'read/mark/ignore' : [pub1, pub2, ...] }
 
@@ -202,7 +202,17 @@ if __name__ == '__main__':
 
     for db_item in online_db_items: db.setdefault(db_item['rating'], []).append(db_item)
 
-    cutoff_dt = (datetime.now() + timedelta(days=-cutoff_day)).strftime('%Y-%m-%d %H:%M:%S')
+    if cutoff_day > 0:
+        cutoff_dt = (datetime.now() + timedelta(days=-cutoff_day)).strftime('%Y-%m-%d %H:%M:%S')
+    else:
+        weekday = datetime.now().weekday()+1
+        if weekday in [2,3,4]:
+            cutoff_dt = (datetime.now() + timedelta(days=-1)).strftime('%Y-%m-%d') + ' 09:50:00'
+        elif weekday == [1,7]:
+            cutoff_dt = (datetime.now() + timedelta(days=-3)).strftime('%Y-%m-%d') + ' 09:50:00'
+        else:
+            print ('no annoucement on Friday per https://info.arxiv.org/help/availability.html')
+            sys.exit(0)
     new_entries = fetch_from_date(cutoff_dt)
     json.dump(new_entries, open(f'workspace/new_entries_from_{cutoff_dt.replace(":","").replace("-","")}.json', 'w'))
     if len(new_entries) == 0:
