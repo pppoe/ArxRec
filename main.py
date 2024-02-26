@@ -208,7 +208,7 @@ if __name__ == '__main__':
         weekday = datetime.now().weekday()+1
         if weekday in [2,3,4]:
             cutoff_dt = (datetime.now() + timedelta(days=-1)).strftime('%Y-%m-%d') + ' 09:50:00'
-        elif weekday == [1,7]:
+        elif weekday in [1,7]:
             cutoff_dt = (datetime.now() + timedelta(days=-3)).strftime('%Y-%m-%d') + ' 09:50:00'
         else:
             print ('no annoucement on Friday per https://info.arxiv.org/help/availability.html')
