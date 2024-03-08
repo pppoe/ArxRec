@@ -11,6 +11,7 @@ import xml.etree.ElementTree as ET
 import traceback
 import numpy as np
 import gspread
+from urllib.parse import quote
 
 def format_score(s): return np.round(s, 4)
 
@@ -127,6 +128,13 @@ def get_prefilled_google_form(title,author,abstract,link=""):
     abstract = quote(abstract)
     link = quote(link)
     return f'https://docs.google.com/forms/d/e/1FAIpQLSfSfFqShId9ssA7GWYmvv7m_7qsIao4K__1rDj9BurNNxUPYQ/viewform?{entry_title}={title}&{entry_author}={author}&{entry_abstract}={abstract}&{entry_link}={link}&{entry_rating}=Read'
+
+def get_prefilled_email(title, author, abstract, link, addr='oeppp.rm'):
+    subject = "[arXrec] " + title
+    encoded_subject = quote(subject)
+    body = "Title: " + title + "\n" + "Author: " + author + "\n" + "Abstract: " + abstract + "\n" + "Link: " + link
+    encoded_body = quote(body)
+    return f"mailto:{addr[::-1]}@gmail.com?subject={encoded_subject}&body={encoded_body}"
 
 if __name__ == '__main__':
 
@@ -263,7 +271,11 @@ if __name__ == '__main__':
                 'date': e['updated'].split('T')[0],
                 'relevancy': e['relevancy'],
                'topK': e['topK'],
+               'mailto': e['mailto'],
                 'form': get_prefilled_google_form(e['title'], e['author'], e['abstract'], e['link'])}) + ","
+
+    for e in selected_entries:
+        e['mailto'] = get_prefilled_email(e['title'], e['author'], e['abstract'], e['link'])
 
     page_fpath = 'docs/index.html'
     lines = [l for l in open('_page.html').readlines()]
@@ -272,11 +284,11 @@ if __name__ == '__main__':
     minified = ''.join(lines) + '\n'
     with open(page_fpath, 'w') as f:
         f.write(minified)
-    os.system(f'git add {page_fpath}')
-    # keep a daily copy
-    datestr = datetime.now().strftime('%Y%m%d')
-    daily_path_fpath = f'docs/daily{datestr}.html'
-    shutil.copy(page_fpath, daily_path_fpath)
-    os.system(f'git add {daily_path_fpath}')
-    os.system(f'git commit -m "updated at {cutoff_dt}"')
-    os.system(f'git push')
+    # os.system(f'git add {page_fpath}')
+    # # keep a daily copy
+    # datestr = datetime.now().strftime('%Y%m%d')
+    # daily_path_fpath = f'docs/daily{datestr}.html'
+    # shutil.copy(page_fpath, daily_path_fpath)
+    # os.system(f'git add {daily_path_fpath}')
+    # os.system(f'git commit -m "updated at {cutoff_dt}"')
+    # os.system(f'git push')

@@ -80,6 +80,9 @@
     .post div.comment {
       text-align: right;
     }
+    .post div.comment a {
+      margin: 1em;
+    }
     .post .text {
       margin: 1em 0em;
       padding: 0;
@@ -213,6 +216,12 @@
         actionElement.textContent = "Action";
         actionElement.target = "_blank";
         linkElementContainer.appendChild(actionElement);
+        const emailElement = document.createElement('a');
+        emailElement.setAttribute("class", "comment");
+        emailElement.href = post.mailto;
+        emailElement.textContent = "Email";
+        emailElement.target = "_blank";
+        linkElementContainer.appendChild(emailElement);
         postElement.appendChild(linkElementContainer);
         const e = document.createElement('div');
         e.setAttribute("class", "clear");
