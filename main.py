@@ -284,11 +284,11 @@ if __name__ == '__main__':
     minified = ''.join(lines) + '\n'
     with open(page_fpath, 'w') as f:
         f.write(minified)
-    # os.system(f'git add {page_fpath}')
-    # # keep a daily copy
-    # datestr = datetime.now().strftime('%Y%m%d')
-    # daily_path_fpath = f'docs/daily{datestr}.html'
-    # shutil.copy(page_fpath, daily_path_fpath)
-    # os.system(f'git add {daily_path_fpath}')
-    # os.system(f'git commit -m "updated at {cutoff_dt}"')
-    # os.system(f'git push')
+    os.system(f'git add {page_fpath}')
+    # keep a daily copy
+    datestr = datetime.now().strftime('%Y%m%d')
+    daily_path_fpath = f'docs/daily{datestr}.html'
+    shutil.copy(page_fpath, daily_path_fpath)
+    os.system(f'git add {daily_path_fpath}')
+    os.system(f'git commit -m "updated at {cutoff_dt}"')
+    os.system(f'git push')
