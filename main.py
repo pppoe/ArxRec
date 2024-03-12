@@ -2,6 +2,7 @@ from urllib.parse import quote
 import hashlib, os, sys
 import json, tqdm
 import tiktoken
+import shutil
 import base64
 import argparse
 from scholarly import scholarly
