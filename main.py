@@ -94,7 +94,8 @@ def calculate_md5_hash(input_string):
     return md5_hash
 
 def get_text_embedding(title, author, abstract, openai_token, cache=None):
-    text = f'title: {title}\nauthors: {author}\nabstract: {abstract}\n'
+    # text = f'title: {title}\nauthors: {author}\nabstract: {abstract}\n'
+    text = f'title: {title}\nabstract: {abstract}\n'
     num_tokens = num_tokens_from_string(text, "cl100k_base")
     if num_tokens > 1000: text = text[:1000]
     text_md5 = calculate_md5_hash(text)
@@ -130,7 +131,7 @@ def get_prefilled_google_form(title,author,abstract,link=""):
     link = quote(link)
     return f'https://docs.google.com/forms/d/e/1FAIpQLSfSfFqShId9ssA7GWYmvv7m_7qsIao4K__1rDj9BurNNxUPYQ/viewform?{entry_title}={title}&{entry_author}={author}&{entry_abstract}={abstract}&{entry_link}={link}&{entry_rating}=Read'
 
-def get_prefilled_email(title, author, abstract, link, addr='oeppp.rm'):
+def get_prefilled_email(title, author, abstract, link, addr='eoppp.rm'):
     subject = "[arXrec] " + title
     encoded_subject = quote(subject)
     body = "Title: " + title + "\n" + "Author: " + author + "\n" + "Abstract: " + abstract + "\n" + "Link: " + link
