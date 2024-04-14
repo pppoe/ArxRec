@@ -281,16 +281,24 @@ if __name__ == '__main__':
 
     page_fpath = 'docs/index.html'
     lines = [l for l in open('_page.html').readlines()]
+    def navigationButton(l):
+        for d in range(1,7):
+            datestr = (datetime.now()+timedelta(days=-d)).strftime('%Y%m%d')
+            if os.path.exists(f'docs/daily{datestr}.html'):
+                l = l.replace('__PREV__', f'daily{datestr}.html')
+        l = l.replace('__PREV__', '#')
+        return l
+    lines = [navigationButton(l) for l in lines]
     content_line_ind = [l.strip().rstrip() for l in lines].index('__CONTENT__')
     lines[content_line_ind] = '\n'.join(msg2html(e) for e in selected_entries) + '\n'
     minified = ''.join(lines) + '\n'
     with open(page_fpath, 'w') as f:
         f.write(minified)
-    os.system(f'git add {page_fpath}')
     # keep a daily copy
     datestr = datetime.now().strftime('%Y%m%d')
     daily_path_fpath = f'docs/daily{datestr}.html'
     shutil.copy(page_fpath, daily_path_fpath)
+    os.system(f'git add {page_fpath}')
     os.system(f'git add {daily_path_fpath}')
     os.system(f'git commit -m "updated at {cutoff_dt}"')
     os.system(f'git push')
