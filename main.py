@@ -131,10 +131,10 @@ def get_prefilled_google_form(title,author,abstract,link=""):
     link = quote(link)
     return f'https://docs.google.com/forms/d/e/1FAIpQLSfSfFqShId9ssA7GWYmvv7m_7qsIao4K__1rDj9BurNNxUPYQ/viewform?{entry_title}={title}&{entry_author}={author}&{entry_abstract}={abstract}&{entry_link}={link}&{entry_rating}=Read'
 
-def get_prefilled_email(title, author, abstract, link, addr='eoppp.rm'):
+def get_prefilled_email(title, author, abstract, link, addr='4202.il.gnaixoah', form=''):
     subject = "[arXrec] " + title
     encoded_subject = quote(subject)
-    body = "Title: " + title + "\n" + "Author: " + author + "\n" + "Abstract: " + abstract + "\n" + "Link: " + link
+    body = "Title: " + title + "\n" + "Author: " + author + "\n" + "Abstract: " + abstract + "\n" + "Link: " + link +  "\n" + "Form: " + form
     encoded_body = quote(body)
     return f"mailto:{addr[::-1]}@gmail.com?subject={encoded_subject}&body={encoded_body}"
 
@@ -274,10 +274,11 @@ if __name__ == '__main__':
                 'relevancy': e['relevancy'],
                'topK': e['topK'],
                'mailto': e['mailto'],
-                'form': get_prefilled_google_form(e['title'], e['author'], e['abstract'], e['link'])}) + ","
+                'form': e['form']}) + ","
 
     for e in selected_entries:
-        e['mailto'] = get_prefilled_email(e['title'], e['author'], e['abstract'], e['link'])
+        e['form'] = get_prefilled_google_form(e['title'], e['author'], e['abstract'], e['link'])
+        e['mailto'] = get_prefilled_email(e['title'], e['author'], e['abstract'], e['link'], form=e['form'])
 
     page_fpath = 'docs/index.html'
     lines = [l for l in open('_page.html').readlines()]
