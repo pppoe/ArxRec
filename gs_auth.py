@@ -6,7 +6,7 @@ if __name__ == '__main__':
 
     args = argparse.ArgumentParser()
     args.add_argument('--google_oauth', type=str, default=None, required=True, help='Path to Google OAuth Credentials json file')
-    args.add_argument('--google_oauth_user', type=str, default=None, required=False, help='Path to Google OAuth Authorized User json file')
+    args.add_argument('--google_oauth_user', type=str, default=None, required=True, help='Path to Google OAuth Authorized User json file')
     args = args.parse_args()
 
     google_oauth_user = None
